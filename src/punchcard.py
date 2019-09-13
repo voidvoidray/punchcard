@@ -132,16 +132,32 @@ def get_work_time( st,et ):
     m= et[4]-st[4]
     s= et[5]-st[5]
     if s < 0:
-        m = m - 1
-        s = s + 60
+        s= s+60
+        m= m-1
     if m < 0:
-        h = h - 1
-        m = m + 60
-    if   h >= 11:
-        h = h - 2
-    elif h >= 5:
-        h = h - 1
+        m= m+60
+        h= h-1
+
+    wt= h + m/60 + s/3600
+
+    if   wt >= 22.5:
+        h= h-2
+        m= m-30
+    elif wt >= 18.0:
+        h= h-2
+    elif wt >= 13.5:
+        h= h-1
+        m= m-30
+    elif wt >=  9.0:
+        h= h-1
+    elif wt >=  4.5:
+        m= m-30
+    if m<0:
+        m= m+60
+        h= h-1
+
     return [ h,m,s ]
+
 
 def get_sum_worktime( DB ):
     sh= 0
